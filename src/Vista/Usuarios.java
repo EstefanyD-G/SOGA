@@ -54,12 +54,6 @@ public class Usuarios extends JPanel implements ActionListener, MouseListener, K
         super.setOpaque(false);
         super.setVisible(false);
 
-        try {
-            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
         tbDatos = new JTable(dataModel);
         tbDatos.setEnabled(false);
         tbDatos.setAutoResizeMode(5);
@@ -96,7 +90,7 @@ public class Usuarios extends JPanel implements ActionListener, MouseListener, K
         this.add(jtxtNombre);
 
         jlbIdentificacion_R = new JLabel("*Identificacion Responsable");
-        jlbIdentificacion_R.setBounds(450, 145, 150, 25);
+        jlbIdentificacion_R.setBounds(450, 145, 240, 25);
         jlbIdentificacion_R.setForeground(Color.BLACK);
         jlbIdentificacion_R.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         this.add(jlbIdentificacion_R);
@@ -108,7 +102,7 @@ public class Usuarios extends JPanel implements ActionListener, MouseListener, K
         this.add(jtxtIdentificacion_R);
 
         jlbUsuario = new JLabel("*Nombre de Usuario");
-        jlbUsuario.setBounds(180, 225, 120, 25);
+        jlbUsuario.setBounds(180, 225, 170, 25);
         jlbUsuario.setForeground(Color.BLACK);
         jlbUsuario.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         this.add(jlbUsuario);
@@ -132,7 +126,7 @@ public class Usuarios extends JPanel implements ActionListener, MouseListener, K
         this.add(jtxtContraseña);
 
         jlbPerfil = new JLabel("*Perfil");
-        jlbPerfil.setBounds(180, 385, 150, 25);
+        jlbPerfil.setBounds(180, 305, 150, 25);
         jlbPerfil.setForeground(Color.BLACK);
         jlbPerfil.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         this.add(jlbPerfil);
@@ -142,11 +136,11 @@ public class Usuarios extends JPanel implements ActionListener, MouseListener, K
         jcbPerfil.setBackground(Color.WHITE);
         jcbPerfil.addItem("Pastor");
         jcbPerfil.addItem("Miembro");
-        jcbPerfil.setBounds(180, 410, 250, 30);
+        jcbPerfil.setBounds(180, 330, 250, 30);
         this.add(jcbPerfil);
 
         jlbEstado = new JLabel("*Estado");
-        jlbEstado.setBounds(450, 385, 150, 25);
+        jlbEstado.setBounds(450, 305, 150, 25);
         jlbEstado.setForeground(Color.BLACK);
         jlbEstado.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         this.add(jlbEstado);
@@ -156,7 +150,7 @@ public class Usuarios extends JPanel implements ActionListener, MouseListener, K
         jcbEstado.setBackground(Color.WHITE);
         jcbEstado.addItem("Activo");
         jcbEstado.addItem("Inactivo");
-        jcbEstado.setBounds(450, 410, 250, 30);
+        jcbEstado.setBounds(450, 330, 250, 30);
         this.add(jcbEstado);
 
         //Botones
@@ -256,7 +250,7 @@ public class Usuarios extends JPanel implements ActionListener, MouseListener, K
         jpError = new JPanel();
         jpError.add(jlbValidar);
         jpError.setLayout(null);
-        jpError.setBackground(new Color(0, 123, 183));
+        jpError.setBackground(Color.BLACK);
         jpError.setBounds(0, 0, 882, 45);
         this.add(jpError);
 
@@ -278,9 +272,7 @@ public class Usuarios extends JPanel implements ActionListener, MouseListener, K
         if (ae.getSource() == jbtnGuardar) {
             if (jtxtCodigo_P.getText().trim().length() == 0 || jtxtNombre.getText().trim().length() == 0 || jtxtIdentificacion_R.getText().trim().length() == 0 || jtxtUsuario.getText().trim().length() == 0 || jtxtContraseña.getText().trim().length() == 0) {
                 Toolkit.getDefaultToolkit().beep();
-                jpError.setBackground(new Color(237, 28, 36));
-                jlbValidar.setText("Ingrese los campos en rojo");
-
+                JOptionPane.showMessageDialog(this, "Ingrese los campos en rojo", "SOGA", JOptionPane.ERROR_MESSAGE);
                 if (jtxtCodigo_P.getText().trim().length() == 0) {
                     jtxtCodigo_P.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
                 } else {
@@ -319,110 +311,48 @@ public class Usuarios extends JPanel implements ActionListener, MouseListener, K
 
                 return;
             }
-            if (jtxtCodigo_P.getText().trim().length() <= 5 || jtxtNombre.getText().trim().length() <= 3 || jtxtIdentificacion_R.getText().trim().length() <= 7 || jtxtUsuario.getText().trim().length() <= 3 || jtxtContraseña.getText().trim().length() <= 7) {
+            if (jtxtContraseña.getText().length() <= 6) {
                 Toolkit.getDefaultToolkit().beep();
-                jpError.setBackground(new Color(237, 28, 36));
-                jlbValidar.setText("Ingrese un tamaño mayor en los campos rojos");
-
-                if (jtxtCodigo_P.getText().length() <= 5) {
-                    jtxtCodigo_P.setBorder(BorderFactory.createLineBorder(Color.red, 1));
-                } else {
-                    jtxtCodigo_P.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-                }
-
-                if (jtxtNombre.getText().length() <= 3) {
-                    jtxtNombre.setBorder(BorderFactory.createLineBorder(Color.red, 1));
-                } else {
-                    jtxtNombre.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-                }
-
-                if (jtxtIdentificacion_R.getText().length() <= 7) {
-                    jtxtIdentificacion_R.setBorder(BorderFactory.createLineBorder(Color.red, 1));
-                } else {
-                    jtxtIdentificacion_R.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-                }
-
-                if (jtxtUsuario.getText().length() <= 3) {
-                    jtxtUsuario.setBorder(BorderFactory.createLineBorder(Color.red, 1));
-                } else {
-                    jtxtUsuario.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-                }
-
-                if (jtxtContraseña.getText().length() <= 7) {
-                    jtxtContraseña.setBorder(BorderFactory.createLineBorder(Color.red, 1));
-                } else {
-                    jtxtContraseña.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-                }
-                
+                jtxtContraseña.setBorder(BorderFactory.createLineBorder(Color.red, 1));
                 return;
-            }
-            int cont = 0, cont2 = 0;
-            String usuario;
-            usuario = jtxtUsuario.getText();
-            for (int i = 0; i < usuario.length(); i++) {
-                if ("@".equals(usuario.substring(i, i + 1))) {
-                    cont++;
-                }
-                if (cont == 1) {
-                    if (".".equals(usuario.substring(i, i + 1))) {
-                        cont2++;
-                    }
-                }
-            }
-
-            if (cont != 1 || cont2 == 0) {
-                LimpiarCampos();
-                Toolkit.getDefaultToolkit().beep();
-                jpError.setBackground(new Color(237, 28, 36));
-                jlbValidar.setText("Ingrese una dirección de correo válida");
-                jtxtUsuario.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
             } else {
-                try {
-                    UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-                } catch (Exception ex) {
-                    System.err.println(ex);
+                jtxtContraseña.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
+            }
+
+            int option = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea guardar el usuario?", "SOGA", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+            if (option == JOptionPane.YES_OPTION) {
+                if (jtxtCodigo_P.getText().trim().length() > 0) {
+                    usuarioE.setCodigo_P(jtxtCodigo_P.getText());
                 }
-                int option = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea guardar el usuario?", "Airline Travel", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                try {
-                    UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+
+                if (jtxtNombre.getText().trim().length() > 0) {
+                    usuarioE.setNombre(jtxtNombre.getText());
                 }
-                if (option == JOptionPane.YES_OPTION) {
-                    if (jtxtCodigo_P.getText().trim().length() > 0) {
-                        usuarioE.setCodigo_P(jtxtCodigo_P.getText());
-                    }
 
-                    if (jtxtNombre.getText().trim().length() > 0) {
-                        usuarioE.setNombre(jtxtNombre.getText());
-                    }
+                if (jtxtIdentificacion_R.getText().trim().length() > 0) {
+                    usuarioE.setIdentificacion_R(jtxtIdentificacion_R.getText());
+                }
 
-                    if (jtxtIdentificacion_R.getText().trim().length() > 0) {
-                        usuarioE.setIdentificacion_R(jtxtIdentificacion_R.getText());
-                    }
+                if (jtxtUsuario.getText().trim().length() > 0) {
+                    usuarioE.setUsuario(jtxtUsuario.getText());
+                }
 
-                    if (jtxtUsuario.getText().trim().length() > 0) {
-                        usuarioE.setUsuario(jtxtUsuario.getText());
-                    }
+                if (jtxtContraseña.getText().trim().length() > 0) {
+                    usuarioE.setContraseña(jtxtContraseña.getText());
+                }
+                usuarioE.setPerfil((String) jcbPerfil.getSelectedItem());
+                usuarioE.setEstado((String) jcbEstado.getSelectedItem());
 
-                    if (jtxtContraseña.getText().trim().length() > 0) {
-                        usuarioE.setContraseña(jtxtContraseña.getText());
-                    }
-                    usuarioE.setPerfil((String) jcbPerfil.getSelectedItem());
-                    usuarioE.setEstado((String) jcbEstado.getSelectedItem());
+                boolean guarda = usuarioN.guardarUsuario(usuarioE);
+                if (guarda) {
+                    VaciarCampos();
+                    LimpiarCampos();
+                    JOptionPane.showMessageDialog(this, "Se ha guardado el usuario", "SOGA", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(this, "El usuario ya estaba guardado", "SOGA", JOptionPane.ERROR_MESSAGE);
 
-                    boolean guarda = usuarioN.guardarUsuario(usuarioE);
-                    if (guarda) {
-                        VaciarCampos();
-                        LimpiarCampos();
-                        jpError.setBackground(new Color(0, 154, 225));
-                        jlbValidar.setText("Se ha guardado el usuario");
-                    } else {
-                        Toolkit.getDefaultToolkit().beep();
-                        jpError.setBackground(new Color(237, 28, 36));
-                        jlbValidar.setText("El usuario ya estaba guardado");
-
-                    }
                 }
             }
         }
@@ -452,13 +382,11 @@ public class Usuarios extends JPanel implements ActionListener, MouseListener, K
                     }
                 } else {
                     Toolkit.getDefaultToolkit().beep();
-                    jpError.setBackground(new Color(237, 28, 36));
-                    jlbValidar.setText("El usuario no se ha encontrado");
+                    JOptionPane.showMessageDialog(this, "El usuario no se ha encontrado", "SOGA", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 Toolkit.getDefaultToolkit().beep();
-                jpError.setBackground(new Color(237, 28, 36));
-                jlbValidar.setText("Ingrese el Documento de identidad");
+                JOptionPane.showMessageDialog(this, "Ingrese el Codigo", "SOGA", JOptionPane.ERROR_MESSAGE);
                 jtxtCodigo_P.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
             }
         }
@@ -466,8 +394,7 @@ public class Usuarios extends JPanel implements ActionListener, MouseListener, K
         if (ae.getSource() == jbtnActualizar) {
             if (jtxtCodigo_P.getText().trim().length() == 0 || jtxtNombre.getText().trim().length() == 0 || jtxtIdentificacion_R.getText().trim().length() == 0 || jtxtUsuario.getText().trim().length() == 0 || jtxtContraseña.getText().trim().length() == 0) {
                 Toolkit.getDefaultToolkit().beep();
-                jpError.setBackground(new Color(237, 28, 36));
-                jlbValidar.setText("Ingrese los campos en rojo");
+                JOptionPane.showMessageDialog(this, "Ingrese los campos en rojo", "SOGA", JOptionPane.ERROR_MESSAGE);
 
                 if (jtxtCodigo_P.getText().trim().length() == 0) {
                     jtxtCodigo_P.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
@@ -506,121 +433,52 @@ public class Usuarios extends JPanel implements ActionListener, MouseListener, K
                 }
                 return;
             }
-            if (jtxtCodigo_P.getText().trim().length() <= 5 || jtxtNombre.getText().trim().length() <= 3 || jtxtIdentificacion_R.getText().trim().length() <= 7 || jtxtUsuario.getText().trim().length() <= 3 || jtxtContraseña.getText().trim().length() <= 7) {
+
+            if (jtxtContraseña.getText().length() <= 6) {
                 Toolkit.getDefaultToolkit().beep();
-                jpError.setBackground(new Color(237, 28, 36));
-                jlbValidar.setText("Ingrese un tamaño mayor en los campos rojos");
-
-                if (jtxtCodigo_P.getText().length() <= 5) {
-                    jtxtCodigo_P.setBorder(BorderFactory.createLineBorder(Color.red, 1));
-                } else {
-                    jtxtCodigo_P.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-                }
-
-                if (jtxtNombre.getText().length() <= 3) {
-                    jtxtNombre.setBorder(BorderFactory.createLineBorder(Color.red, 1));
-                } else {
-                    jtxtNombre.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-                }
-
-                if (jtxtIdentificacion_R.getText().length() <= 7) {
-                    jtxtIdentificacion_R.setBorder(BorderFactory.createLineBorder(Color.red, 1));
-                } else {
-                    jtxtIdentificacion_R.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-                }
-
-                if (jtxtUsuario.getText().length() <= 3) {
-                    jtxtUsuario.setBorder(BorderFactory.createLineBorder(Color.red, 1));
-                } else {
-                    jtxtUsuario.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-                }
-
-                if (jtxtContraseña.getText().length() <= 7) {
-                    jtxtContraseña.setBorder(BorderFactory.createLineBorder(Color.red, 1));
-                } else {
-                    jtxtContraseña.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-                }
-                
+                jtxtContraseña.setBorder(BorderFactory.createLineBorder(Color.red, 1));
                 return;
-            }
-            int cont = 0, cont2 = 0;
-            String usuario;
-            usuario = jtxtUsuario.getText();
-            for (int i = 0; i < usuario.length(); i++) {
-                if ("@".equals(usuario.substring(i, i + 1))) {
-                    cont++;
-                }
-                if (cont == 1) {
-                    if (".".equals(usuario.substring(i, i + 1))) {
-                        cont2++;
-                    }
-                }
-            }
-
-            if (cont != 1 || cont2 == 0) {
-                LimpiarCampos();
-                Toolkit.getDefaultToolkit().beep();
-                jpError.setBackground(new Color(237, 28, 36));
-                jlbValidar.setText("Ingrese una dirección de correo válida");
-                jtxtUsuario.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
             } else {
-                try {
-                    UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-                } catch (Exception ex) {
-                    System.err.println(ex);
+                jtxtContraseña.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
+            }
+            int option = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea actualizar el usuario?", "SOGA", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+            if (option == JOptionPane.YES_OPTION) {
+                if (jtxtCodigo_P.getText().trim().length() > 0) {
+                    usuarioE.setCodigo_P(jtxtCodigo_P.getText());
                 }
-                int option = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea actualizar el usuario?", "Airline Travel", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                try {
-                    UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+
+                if (jtxtNombre.getText().trim().length() > 0) {
+                    usuarioE.setNombre(jtxtNombre.getText());
                 }
-                if (option == JOptionPane.YES_OPTION) {
-                    if (jtxtCodigo_P.getText().trim().length() > 0) {
-                        usuarioE.setCodigo_P(jtxtCodigo_P.getText());
-                    }
 
-                    if (jtxtNombre.getText().trim().length() > 0) {
-                        usuarioE.setNombre(jtxtNombre.getText());
-                    }
+                if (jtxtIdentificacion_R.getText().trim().length() > 0) {
+                    usuarioE.setIdentificacion_R(jtxtIdentificacion_R.getText());
+                }
 
-                    if (jtxtIdentificacion_R.getText().trim().length() > 0) {
-                        usuarioE.setIdentificacion_R(jtxtIdentificacion_R.getText());
-                    }
+                if (jtxtUsuario.getText().trim().length() > 0) {
+                    usuarioE.setUsuario(jtxtUsuario.getText());
+                }
 
-                    if (jtxtUsuario.getText().trim().length() > 0) {
-                        usuarioE.setUsuario(jtxtUsuario.getText());
-                    }
+                if (jtxtContraseña.getText().trim().length() > 0) {
+                    usuarioE.setContraseña(jtxtContraseña.getText());
+                }
 
-                    if (jtxtContraseña.getText().trim().length() > 0) {
-                        usuarioE.setContraseña(jtxtContraseña.getText());
-                    }
+                usuarioE.setPerfil((String) jcbPerfil.getSelectedItem());
+                usuarioE.setEstado((String) jcbEstado.getSelectedItem());
 
-                    usuarioE.setPerfil((String) jcbPerfil.getSelectedItem());
-                    usuarioE.setEstado((String) jcbEstado.getSelectedItem());
-
-                    boolean respuestau = usuarioN.modificarUsuario(usuarioE);
-                    if (respuestau) {
-                        LimpiarCampos();
-                        jpError.setBackground(new Color(0, 154, 225));
-                        jlbValidar.setText("Se ha actualizado el usuario");
-                    }
+                boolean respuestau = usuarioN.modificarUsuario(usuarioE);
+                if (respuestau) {
+                    LimpiarCampos();
+                    JOptionPane.showMessageDialog(this, "Se ha actualizado el usuario", "SOGA", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         }
 
         if (ae.getSource() == jbtnEliminar) {
-            try {
-                UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-            } catch (Exception ex) {
-                System.err.println(ex);
-            }
-            int option = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea eliminar el usuario?", "Airline Travel", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            try {
-                UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+
+            int option = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea eliminar el usuario?", "SOGA", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
             if (option == JOptionPane.YES_OPTION) {
                 String codigo = jtxtCodigo_P.getText();
                 boolean respuestap;
@@ -634,8 +492,7 @@ public class Usuarios extends JPanel implements ActionListener, MouseListener, K
                         jbtnEliminar.setVisible(false);
                         LimpiarCampos();
                         VaciarCampos();
-                        jpError.setBackground(new Color(0, 154, 225));
-                        jlbValidar.setText("El Usuario fue eliminado");
+                        JOptionPane.showMessageDialog(this, "El Usuario fue eliminado", "SOGA", JOptionPane.INFORMATION_MESSAGE);
                         if (jbtnActualizar.getBounds().x == 0) {
                             jbtnListar.setBounds(0, 0, 175, 60);
                             jbtnLimpiar.setBounds(525, 0, 175, 60);
@@ -744,90 +601,9 @@ public class Usuarios extends JPanel implements ActionListener, MouseListener, K
 
     @Override
     public void keyTyped(KeyEvent ke) {
-        if (ke.getSource() == jtxtCodigo_P) {
-            char c;
-            //capturar el caracter digitado 
-            c = ke.getKeyChar();
-            if (jtxtCodigo_P.getText().length() >= 20 || (c < '0' || c > '9') && (c != (char) KeyEvent.VK_BACK_SPACE) && (c != (char) KeyEvent.VK_DELETE)) {
-                ke.consume();//ignora el caracter digitado
-                Toolkit.getDefaultToolkit().beep();
-            }
-        }
-
-        if (ke.getSource() == jtxtNombre) {
-            char c;
-            //capturar el caracter digitado 
-            c = ke.getKeyChar();
-            if (jtxtNombre.getText().length() >= 25) {
-                ke.consume();//ignora el caracter digitado
-                Toolkit.getDefaultToolkit().beep();
-            }
-        }
-
-        if (ke.getSource() == jtxtIdentificacion_R) {
-            char c;
-            //capturar el caracter digitado 
-            c = ke.getKeyChar();
-            if (jtxtIdentificacion_R.getText().length() >= 30) {
-                ke.consume();//ignora el caracter digitado
-                Toolkit.getDefaultToolkit().beep();
-            }
-        }
-
-        if (ke.getSource() == jtxtUsuario) {
-            char c;
-            //capturar el caracter digitado 
-            c = ke.getKeyChar();
-            if (jtxtUsuario.getText().length() >= 30) {
-                ke.consume();//ignora el caracter digitado
-                Toolkit.getDefaultToolkit().beep();
-            }
-        }
 
         if (ke.getSource() == jtxtContraseña) {
-            char c;
-            //capturar el caracter digitado 
-            c = ke.getKeyChar();
-            if (jtxtContraseña.getText().length() >= 20) {
-                ke.consume();//ignora el caracter digitado
-                Toolkit.getDefaultToolkit().beep();
-            }
-        }
-
-        if (ke.getSource() == jtxtCodigo_P) {
-            if (jtxtCodigo_P.getText().length() <= 5) {
-                jtxtCodigo_P.setBorder(BorderFactory.createLineBorder(Color.red, 1));
-            } else {
-                jtxtCodigo_P.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-            }
-        }
-
-        if (ke.getSource() == jtxtNombre) {
-            if (jtxtNombre.getText().length() <= 3) {
-                jtxtNombre.setBorder(BorderFactory.createLineBorder(Color.red, 1));
-            } else {
-                jtxtNombre.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-            }
-        }
-
-        if (ke.getSource() == jtxtIdentificacion_R) {
-            if (jtxtIdentificacion_R.getText().length() <= 7) {
-                jtxtIdentificacion_R.setBorder(BorderFactory.createLineBorder(Color.red, 1));
-            } else {
-                jtxtIdentificacion_R.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-            }
-        }
-
-        if (ke.getSource() == jtxtUsuario) {
-            if (jtxtUsuario.getText().length() <= 3) {
-                jtxtUsuario.setBorder(BorderFactory.createLineBorder(Color.red, 1));
-            } else {
-                jtxtUsuario.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-            }
-        }
-
-        if (ke.getSource() == jtxtContraseña) {
-            if (jtxtContraseña.getText().length() <= 7) {
+            if (jtxtContraseña.getText().length() <= 6) {
                 jtxtContraseña.setBorder(BorderFactory.createLineBorder(Color.red, 1));
             } else {
                 jtxtContraseña.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
@@ -838,34 +614,7 @@ public class Usuarios extends JPanel implements ActionListener, MouseListener, K
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        if (ke.getSource() == jtxtCodigo_P) {
-            if (jtxtCodigo_P.getText().trim().length() < 0) {
-                jtxtCodigo_P.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
-            } else {
-                jtxtCodigo_P.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-            }
-        }
-        if (ke.getSource() == jtxtNombre) {
-            if (jtxtNombre.getText().trim().length() < 0) {
-                jtxtNombre.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
-            } else {
-                jtxtNombre.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-            }
-        }
-        if (ke.getSource() == jtxtIdentificacion_R) {
-            if (jtxtIdentificacion_R.getText().trim().length() < 0) {
-                jtxtIdentificacion_R.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
-            } else {
-                jtxtIdentificacion_R.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-            }
-        }
-        if (ke.getSource() == jtxtUsuario) {
-            if (jtxtUsuario.getText().trim().length() < 0) {
-                jtxtUsuario.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
-            } else {
-                jtxtUsuario.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-            }
-        }
+
         if (ke.getSource() == jtxtContraseña) {
             if (jtxtContraseña.getText().trim().length() < 0) {
                 jtxtContraseña.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
@@ -881,8 +630,6 @@ public class Usuarios extends JPanel implements ActionListener, MouseListener, K
     }
 
     public void LimpiarCampos() {
-        jpError.setBackground(new Color(0, 123, 183));
-        jlbValidar.setText("Los campos con (*) son obligatorios");
         jtxtNombre.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         jtxtCodigo_P.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         jtxtIdentificacion_R.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));

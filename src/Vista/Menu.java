@@ -1,33 +1,27 @@
 package Vista;
 
-import Entidades.UsuarioEnt;
-import Negocio.UsuarioNg;
 import javax.swing.*;            // para los botones
 import java.awt.*;               //Paquete que contiene imagenes y eventos "awt"
 import java.awt.event.*;
 import Vista.*;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Menu extends JFrame implements ActionListener, MouseListener, MouseMotionListener {
 
-    JLabel jlbAirlineTravel, cancelar;
+    JLabel jlbSOGA;
     JLabel jlbNombre, jlbCorreo, jlbimage;
     JLabel jlb_x1, jlb_x2;
 
     JButton jbtnInicio;
     JButton jbtnUsuarios;
-  //JButton jbtnEventos;
+    JButton jbtnActividad;
+    JButton jbtnCronograma;
     JButton jbtnCerrarSesion;
-  //JButton jbtnGuardar;
 
     JPanel jpMovedor, jpInicio;
 
     Usuarios jpUsuarios = new Usuarios();
-  //Eventos jpEventos = new Eventos();
+    Actividad jpActividad = new Actividad();
+    Cronograma jpCronograma = new Cronograma();
 
     String Correo, Clave, Nombre, Apellido, Telefono, Celular;
 
@@ -36,25 +30,6 @@ public class Menu extends JFrame implements ActionListener, MouseListener, Mouse
     Color b = Color.DARK_GRAY;
     Color c = Color.DARK_GRAY;
     Color d = Color.DARK_GRAY;
-    Color e = Color.DARK_GRAY;
-    Color f = Color.DARK_GRAY;
-    Color g = Color.DARK_GRAY;
-    Color h = Color.DARK_GRAY;
-    Color i = Color.DARK_GRAY;
-
-    MenuItem aboutItem, ayuda;
-    MenuItem exitItem, exitItem2;
-    MenuItem errorItem;
-    MenuItem warningItem;
-    MenuItem infoItem;
-    MenuItem noneItem;
-    PopupMenu displayMenu;
-
-    ImageIcon image = new ImageIcon();
-
-    PopupMenu popup = new PopupMenu();
-    TrayIcon trayIcon = new TrayIcon(createImage("/Imagenes/icono.png", "tray icon"));
-    SystemTray tray = SystemTray.getSystemTray();
 
     public Menu() {
         super.setTitle("Menu");
@@ -66,7 +41,7 @@ public class Menu extends JFrame implements ActionListener, MouseListener, Mouse
         super.setLocationRelativeTo(null);
         super.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icono.png")).getImage());
         this.setVisible(true);
-
+        
         jlb_x1 = new JLabel("-");
         jlb_x1.setBounds(809, 15, 25, 25);
         jlb_x1.setForeground(Color.WHITE);
@@ -85,15 +60,8 @@ public class Menu extends JFrame implements ActionListener, MouseListener, Mouse
         jlb_x2.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
         this.add(jlb_x2);
 
-        jlbAirlineTravel = new JLabel("");
-        jlbAirlineTravel.setBounds(290, 18, 150, 20);
-        jlbAirlineTravel.setForeground(Color.BLACK);
-        jlbAirlineTravel.setFont(new Font("Segoe UI", Font.PLAIN, 25));
-        this.add(jlbAirlineTravel);
-
-        //Inicio Menu
         jbtnCerrarSesion = new JButton(" Cerrar Sesión");
-        jbtnCerrarSesion.setBounds(240, 0, 120, 61);
+        jbtnCerrarSesion.setBounds(480, 0, 120, 61);
         jbtnCerrarSesion.setBorder(null);
         jbtnCerrarSesion.setBackground(Color.DARK_GRAY);
         jbtnCerrarSesion.setForeground(Color.WHITE);
@@ -103,20 +71,29 @@ public class Menu extends JFrame implements ActionListener, MouseListener, Mouse
         jbtnCerrarSesion.addActionListener(this);
         jbtnCerrarSesion.setFocusPainted(false);
         this.add(jbtnCerrarSesion);
-        
-        /*
-        jbtnEventos = new JButton(" Eventos");
-        jbtnEventos.setBounds(240, 0, 120, 61);
-        jbtnEventos.setBorder(null);
-        jbtnEventos.setBackground(b);
-        jbtnEventos.setForeground(Color.WHITE);
-        jbtnEventos.setFont(new Font("Segoe UI", Font.PLAIN, 17));
-        jbtnEventos.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
-        jbtnEventos.addMouseListener(this);
-        jbtnEventos.setFocusPainted(false);
-        this.add(jbtnEventos);
-        */
-        
+
+        jbtnCronograma = new JButton(" Cronograma");
+        jbtnCronograma.setBounds(360, 0, 120, 61);
+        jbtnCronograma.setBorder(null);
+        jbtnCronograma.setBackground(d);
+        jbtnCronograma.setForeground(Color.WHITE);
+        jbtnCronograma.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+        jbtnCronograma.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtnCronograma.addMouseListener(this);
+        jbtnCronograma.setFocusPainted(false);
+        this.add(jbtnCronograma);
+
+        jbtnActividad = new JButton(" Actividad");
+        jbtnActividad.setBounds(240, 0, 120, 61);
+        jbtnActividad.setBorder(null);
+        jbtnActividad.setBackground(c);
+        jbtnActividad.setForeground(Color.WHITE);
+        jbtnActividad.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+        jbtnActividad.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtnActividad.addMouseListener(this);
+        jbtnActividad.setFocusPainted(false);
+        this.add(jbtnActividad);
+
         jbtnUsuarios = new JButton(" Usuarios");
         jbtnUsuarios.setBounds(120, 0, 120, 61);
         jbtnUsuarios.setBorder(null);
@@ -127,7 +104,7 @@ public class Menu extends JFrame implements ActionListener, MouseListener, Mouse
         jbtnUsuarios.addMouseListener(this);
         jbtnUsuarios.setFocusPainted(false);
         this.add(jbtnUsuarios);
-        
+
         jbtnInicio = new JButton(" Inicio");
         jbtnInicio.setBounds(0, 0, 120, 61);
         jbtnInicio.setBorder(null);
@@ -144,13 +121,12 @@ public class Menu extends JFrame implements ActionListener, MouseListener, Mouse
         jpBotones.setBackground(Color.DARK_GRAY);
         jpBotones.add(jbtnInicio);
         jpBotones.add(jbtnUsuarios);
-      //jpBotones.add(jbtnEventos);
+        jpBotones.add(jbtnActividad);
+        jpBotones.add(jbtnCronograma);
         jpBotones.add(jbtnCerrarSesion);
         jpBotones.setLayout(null);
         jpBotones.setBounds(0, 0, 882, 61);
         this.add(jpBotones);
-
-        
 
         //Nombre
         jlbNombre = new JLabel("");
@@ -187,13 +163,16 @@ public class Menu extends JFrame implements ActionListener, MouseListener, Mouse
 
         Container guardapaneles = getContentPane();
         guardapaneles.add(jpUsuarios);
-
-        cancelar = new JLabel("Cancelar");
-        cancelar.setBounds(250, 476, 57, 20);
-        cancelar.setForeground(Color.DARK_GRAY);
-        cancelar.addMouseListener(this);
-        cancelar.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
-        jpUsuarios.add(cancelar);
+        guardapaneles.add(jpActividad);
+        guardapaneles.add(jpCronograma);
+        
+        jpMovedor = new JPanel();
+        jpMovedor.setOpaque(false);
+        jpMovedor.setLayout(null);
+        jpMovedor.setBounds(1, 1, 882, 60);
+        jpMovedor.addMouseListener(this);
+        jpMovedor.addMouseMotionListener(this);
+        this.add(jpMovedor);
 
         JLabel fondo = new JLabel();
         fondo.setIcon(new ImageIcon(getClass().getResource("/Imagenes/wallpaper/walker-fondo.png")));
@@ -210,66 +189,12 @@ public class Menu extends JFrame implements ActionListener, MouseListener, Mouse
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == jbtnCerrarSesion) {
-            try {
-                UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-            } catch (Exception ex) {
-                System.err.println(ex);
-            }
             int i = JOptionPane.showConfirmDialog(null, "¿Está seguro de cerrar sesión?", "Cerrar Sesión", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            try {
-                UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+
             if (JOptionPane.YES_OPTION == i) {
                 this.setVisible(false);
                 Login l = new Login();
                 this.dispose();
-                tray.remove(trayIcon);
-            }
-        }
-        if (e.getSource() == aboutItem) {
-            this.setVisible(true);
-        }
-        if (e.getSource() == trayIcon) {
-            this.setVisible(true);
-        }
-
-        if (e.getSource() == exitItem2) {
-            try {
-                UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-            } catch (Exception ex) {
-                System.err.println(ex);
-            }
-            int i = JOptionPane.showConfirmDialog(null, "¿Está seguro de cerrar sesión?", "Cerrar Sesión", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            try {
-                UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-            if (JOptionPane.YES_OPTION == i) {
-                this.setVisible(false);
-                Login l = new Login();
-                this.dispose();
-                tray.remove(trayIcon);
-            }
-        }
-
-        if (e.getSource() == exitItem) {
-            try {
-                UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-            } catch (Exception ex) {
-                System.err.println(ex);
-            }
-            int i = JOptionPane.showConfirmDialog(null, "¿Está seguro cerrar la aplicación?", "Cerrar Aplicación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            try {
-                UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-            if (JOptionPane.YES_OPTION == i) {
-                tray.remove(trayIcon);
-                System.exit(0);
             }
         }
 
@@ -301,16 +226,14 @@ public class Menu extends JFrame implements ActionListener, MouseListener, Mouse
         if (arg0.getSource() == jbtnCerrarSesion) {
             jbtnCerrarSesion.setBackground(Color.DARK_GRAY);
         }
-        
-        
-        /*
-        if (arg0.getSource() == jbtnEventos){
-            jbtnEventos.setBackground(Color.DARK_GRAY);
+
+        if (arg0.getSource() == jbtnActividad) {
+            jbtnActividad.setBackground(c);
         }
-        */
-        
-        if (arg0.getSource() == cancelar) {
-            cancelar.setForeground(Color.DARK_GRAY);
+
+        if (arg0.getSource() == jbtnCronograma) {
+            jbtnCronograma.setBackground(d);
+
         }
 
         if (arg0.getSource() == jlb_x1) {
@@ -335,17 +258,15 @@ public class Menu extends JFrame implements ActionListener, MouseListener, Mouse
         if (arg0.getSource() == jbtnCerrarSesion) {
             jbtnCerrarSesion.setBackground(new Color(24, 25, 26));
         }
-        
-        /*
-        if (arg0.getSource() == jbtnEventos){
-            jbtnEventos.setBackground(new Color(24, 25, 26));
-        }
-        */
 
-        if (arg0.getSource() == cancelar) {
-            cancelar.setForeground(new Color(237, 28, 36));
+        if (arg0.getSource() == jbtnActividad) {
+            jbtnActividad.setBackground(new Color(24, 25, 26));
         }
-        
+
+        if (arg0.getSource() == jbtnCronograma) {
+            jbtnCronograma.setBackground(new Color(24, 25, 26));
+        }
+
         if (arg0.getSource() == jlb_x1) {
             jlb_x1.setForeground(new Color(255, 0, 0));
         }
@@ -359,19 +280,28 @@ public class Menu extends JFrame implements ActionListener, MouseListener, Mouse
     public void mouseClicked(MouseEvent ev) {
         if (ev.getSource() == jbtnInicio) {
             a = Color.GRAY;
-            b = c = d = e = f = g = h = i = Color.DARK_GRAY;
+            b = c = d = Color.DARK_GRAY;
+            jbtnInicio.setBackground(a);
             jbtnUsuarios.setBackground(b);
+            jbtnActividad.setBackground(c);
+            jbtnCronograma.setBackground(d);
             jpInicio.setVisible(true);
             jpUsuarios.setVisible(false);
-          //jpEventos.setVisible(false);
+            jpActividad.setVisible(false);
+            jpCronograma.setVisible(false);
         }
 
         if (ev.getSource() == jbtnUsuarios) {
             b = Color.GRAY;
-            a = c = d = e = f = g = h = i = Color.DARK_GRAY;
+            a = c = d = Color.DARK_GRAY;
             jbtnInicio.setBackground(a);
+            jbtnUsuarios.setBackground(b);
+            jbtnActividad.setBackground(c);
+            jbtnCronograma.setBackground(d);
             jpInicio.setVisible(false);
             jpUsuarios.setVisible(true);
+            jpActividad.setVisible(false);
+            jpCronograma.setVisible(false);
 
             jpUsuarios.LimpiarCampos();
             jpUsuarios.pnDatos.setVisible(false);
@@ -379,24 +309,41 @@ public class Menu extends JFrame implements ActionListener, MouseListener, Mouse
             jpUsuarios.jpError.setVisible(true);
 
         }
-        
-        /*
-        if (ev.getSource() == jbtnEventos) {
-            b = Color.GRAY;
-            a = c = d = e = f = g = h = i = Color.DARK_GRAY;
-            jbtnEventos.setBackground(a);
+
+        if (ev.getSource() == jbtnActividad) {
+            c = Color.GRAY;
+            a = b = d = Color.DARK_GRAY;
+            jbtnInicio.setBackground(a);
+            jbtnUsuarios.setBackground(b);
+            jbtnActividad.setBackground(c);
+            jbtnCronograma.setBackground(d);
             jpInicio.setVisible(false);
-            jpUsuarios.setVisible(true);
+            jpUsuarios.setVisible(false);
+            jpActividad.setVisible(true);
+            jpCronograma.setVisible(false);
 
-            jpUsuarios.LimpiarCampos();
-            jpUsuarios.pnDatos.setVisible(false);
-            jpUsuarios.jpBotones.setVisible(true);
-            jpUsuarios.jpError.setVisible(true);
+            jpActividad.LimpiarCampos();
+            jpActividad.pnDatos.setVisible(false);
+            jpActividad.jpBotones.setVisible(true);
+            jpActividad.jpError.setVisible(true);
         }
-        */
 
-        if (ev.getSource() == cancelar) {
-            LimpiarCampos();
+        if (ev.getSource() == jbtnCronograma) {
+            d = Color.GRAY;
+            a = b = c = Color.DARK_GRAY;
+            jbtnInicio.setBackground(a);
+            jbtnUsuarios.setBackground(b);
+            jbtnActividad.setBackground(c);
+            jbtnCronograma.setBackground(d);
+            jpInicio.setVisible(false);
+            jpUsuarios.setVisible(false);
+            jpActividad.setVisible(false);
+            jpCronograma.setVisible(true);
+
+            jpCronograma.LimpiarCampos();
+            jpCronograma.pnDatos.setVisible(false);
+            jpCronograma.jpBotones.setVisible(true);
+            jpCronograma.jpError.setVisible(true);
         }
 
         if (ev.getSource() == jlb_x1) {
@@ -404,8 +351,11 @@ public class Menu extends JFrame implements ActionListener, MouseListener, Mouse
         }
 
         if (ev.getSource() == jlb_x2) {
-            trayIcon.displayMessage("Flight System", "Pasando a segundo plano...", TrayIcon.MessageType.INFO);
-            super.setVisible(false);
+            int i = JOptionPane.showConfirmDialog(null, "¿Está seguro cerrar la aplicación?", "Cerrar Aplicación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+            if (JOptionPane.YES_OPTION == i) {
+                System.exit(0);
+            }
         }
     }
 
@@ -420,38 +370,6 @@ public class Menu extends JFrame implements ActionListener, MouseListener, Mouse
     @Override
     public void mouseMoved(MouseEvent me) {
 
-    }
-
-    protected static Image createImage(String path, String description) {
-        URL imageURL = Menu.class
-                .getResource(path);
-
-        if (imageURL
-                == null) {
-            System.err.println("Imagen no encontrada: " + path);
-            return null;
-        } else {
-            return (new ImageIcon(imageURL, description)).getImage();
-        }
-    }
-
-    public void goToURL(String URL) {
-        if (java.awt.Desktop.isDesktopSupported()) {
-            java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
-
-            if (desktop.isSupported(java.awt.Desktop.Action.BROWSE)) {
-                try {
-                    java.net.URI uri = new java.net.URI(URL);
-                    desktop.browse(uri);
-                } catch (URISyntaxException | IOException ex) {
-                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-    }
-
-    public void LimpiarCampos() {
-        
     }
 
 }

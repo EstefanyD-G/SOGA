@@ -1,4 +1,4 @@
-package Negocio;
+ package Negocio;
 
 import Entidades.UsuarioEnt;
 import Persistencia.UsuarioDts;
@@ -28,11 +28,11 @@ public class UsuarioNg {
                 }
             } else {
                 //Lo encuentra pero la clave esta errada
-                return "none";
+                return "noes";
             }
         } else {
             //no encuentre usuario
-            return "none";
+            return "noes";
         }
 
     }

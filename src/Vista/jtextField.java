@@ -7,10 +7,8 @@ package Vista;
 
 /**
  *
- * @author Alejo5590
+ * @author nened_000
  */
-public class Eventos {
-
-    
+public class jtextField {
     
 }

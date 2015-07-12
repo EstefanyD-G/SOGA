@@ -9,10 +9,10 @@ public class UsuarioDts {
 
     static {
         inicio = new UsuarioEnt(null, null, null, null, null, null, null);
-        nodo = inicio.Liga = new UsuarioEnt("0000001", "estefany", "98030925130", "estefany@hotmail.com", "estefany123", "Pastor", "Activo");
-        nodo1 = nodo.Liga = new UsuarioEnt("0000002", "juan pablo", "97020655963", "juan@hotmail.com", "juan123", "Pastor", "Inactivo");
-        nodo2 = nodo1.Liga = new UsuarioEnt("0000003", "laura", "9789564556", "laura@hotmail.com", "laura123", "Miembro", "Inactivo");
-        fin = nodo2.Liga = new UsuarioEnt("0000004", "alejandro", "97081322221", "alejo@hotmail.com", "alejo123", "Miembro", "Activo");
+        nodo = inicio.Liga = new UsuarioEnt("0000001", "estefany", "98030925130", "estefany", "estefany123", "Pastor", "Activo");
+        nodo1 = nodo.Liga = new UsuarioEnt("0000002", "juan pablo tolosita", "97020655963", "juan", "juan123", "Pastor", "Inactivo");
+        nodo2 = nodo1.Liga = new UsuarioEnt("0000003", "laura", "9789564556", "laura", "laura123", "Miembro", "Inactivo");
+        fin = nodo2.Liga = new UsuarioEnt("0000004", "alejandro", "97081322221", "alejo", "alejo123", "Miembro", "Activo");
         fin.Liga = null;
     }
 

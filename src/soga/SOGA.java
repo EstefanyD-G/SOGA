@@ -19,5 +19,5 @@ public class SOGA {
     public static void main(String[] args) {
         Login b = new Login();
     }
-    
+
 }
